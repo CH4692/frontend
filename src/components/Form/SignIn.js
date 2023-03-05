@@ -1,18 +1,35 @@
 import React from "react";
-import "./Form.css";
 import bgImg from "../../assets/bg-img.jpg";
 import { useForm } from "react-hook-form";
-import "./Input.css";
 import { FaCheckCircle } from "react-icons/fa";
 import { VscError } from "react-icons/vsc";
+import axios from "axios";
+import "./Form.css";
+import "./Input.css";
+import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({ setUser }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => alert(data);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const user = await axios.post("http://localhost:8080/api/v1/auth", data);
+      setUser(user.data);
+      const { role } = user.data;
+      if (role === "ADMIN") {
+        navigate("/admin");
+      } else if (role === "USER") {
+        navigate("/user");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -24,12 +41,11 @@ const SignIn = () => {
             {/* Icon comes here */}
             <h2>Anmelden</h2>
             <p>Melde dich mit deinem Account an</p>
-
             <label>Email</label>
             <div className="input-div">
               <input
                 type="email"
-                {...register("Email", {
+                {...register("email", {
                   required: true,
                   pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 })}
@@ -42,7 +58,7 @@ const SignIn = () => {
             <div className="input-div">
               <input
                 type="password"
-                {...register("Password", {
+                {...register("password", {
                   required: true,
                   pattern:
                     /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
@@ -51,9 +67,17 @@ const SignIn = () => {
               {!errors.Password && <FaCheckCircle className="icon check" />}
               {errors.Password && <VscError className="icon error" />}
             </div>
-
             <hr />
             <button className="btn">Submit</button>
+            <div className="form-change-container">
+              <p className="form-change">Kein Account? </p>
+              <p
+                className="form-change-link"
+                onClick={() => navigate("/signup")}
+              >
+                SignIn
+              </p>
+            </div>
           </div>
         </div>
       </form>

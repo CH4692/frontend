@@ -2,10 +2,10 @@ import React from "react";
 import MealsSummary from "./MealsSummary";
 import AvailableMeals from "./AvailableMeals";
 
-const Meals = () => {
+const Meals = ({ user }) => {
   return (
     <>
-      <MealsSummary name="Charles" />
+      <MealsSummary name={user} />
       <AvailableMeals />
     </>
   );

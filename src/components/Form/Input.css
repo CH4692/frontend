@@ -8,7 +8,7 @@ label {
   text-align: left;
 }
 
-input {
+.input-div input {
   width: 96%;
   height: 20px;
   font-size: 18px;

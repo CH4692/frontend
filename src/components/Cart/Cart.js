@@ -3,11 +3,12 @@ import classes from "./Cart.module.css";
 import CartContext from "../../store/cart.context";
 import { useContext } from "react";
 import CartItem from "./CartItem";
+import axios from "axios";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 
-  const totalAmount = `${cartCtx.totalAmount.toFixed(2)}€`;
+  let totalAmount = `${cartCtx.totalAmount.toFixed(2)}€`;
   const hasItems = cartCtx.items.length > 0;
 
   const cartItemRemoveHandler = (id) => {
@@ -15,6 +16,32 @@ const Cart = (props) => {
   };
   const cartItemAddHandler = (item) => {
     cartCtx.addItem({ ...item, amount: 1 });
+  };
+
+  const orderHandler = async () => {
+    const order = {
+      orderList: cartCtx.items,
+      totalAmount: totalAmount.toString(),
+    };
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v1/order",
+        order,
+        {
+          params: {
+            username: props.user.username,
+          },
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 300);
   };
 
   const cartItems = (
@@ -43,7 +70,11 @@ const Cart = (props) => {
         <button className={classes["button--alt"]} onClick={props.onClose}>
           Schließen
         </button>
-        {hasItems && <button className={classes.button}>Bestellung</button>}
+        {hasItems && (
+          <button onClick={orderHandler} className={classes.button}>
+            Bestellung
+          </button>
+        )}
       </div>
     </Modal>
   );

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -9,20 +9,23 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "./ListItems";
+import { secondaryListItems } from "./ListItems";
+import MainListItems from "./ListItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
+  const navigate = useNavigate();
+
   return (
     <Typography
       variant="body2"
@@ -31,7 +34,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="#">
         Webanwendungen
       </Link>{" "}
       {new Date().getFullYear()}
@@ -89,10 +92,24 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
+  const [data, setData] = useState();
+  const [totalAmount, setTotalAmount] = useState(0);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get("http://localhost:8080/api/v1/users");
+      setData(res.data);
+    }
+    fetchData();
+  }, []);
+
+  if (data === undefined) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -125,11 +142,6 @@ function DashboardContent() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -147,7 +159,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            <MainListItems />
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
@@ -190,7 +202,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <Deposits data={data} />
                 </Paper>
               </Grid>
               {/* Recent Orders */}
@@ -198,10 +210,12 @@ function DashboardContent() {
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Orders
                     title={"Kunden"}
-                    tc1={"Erstellt"}
+                    tc1={"Username"}
                     tc2={"Email"}
                     tc3={"Password"}
                     tc4={"Rolle"}
+                    customer={true}
+                    data={data}
                   />
                 </Paper>
               </Grid>

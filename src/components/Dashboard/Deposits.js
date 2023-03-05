@@ -1,20 +1,29 @@
-import * as React from "react";
-import Link from "@mui/material/Link";
+import React, { useMemo, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Title from "./Title";
 
-function preventDefault(event) {
-  event.preventDefault();
-}
 const time = Date.now();
 const today = new Date(time);
 
-export default function Deposits() {
+export default function Deposits({ data }) {
+  const [totalAmount, setTotalAmount] = useState();
+
+  const getTotalAmount = useMemo(() => {
+    let total = 0;
+    data.map((item) => {
+      total += item.orders.reduce(
+        (total, currentValue) => total + parseInt(currentValue.totalAmount),
+        0
+      );
+    });
+    return total;
+  }, [totalAmount, data]);
+
   return (
     <React.Fragment>
       <Title> Einnahmen Gesamt</Title>
       <Typography component="p" variant="h4">
-        3,024.00€
+        {`${getTotalAmount}€`}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}></Typography>
       <div>{today.toDateString()}</div>

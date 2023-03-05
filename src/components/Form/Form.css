@@ -101,3 +101,22 @@
 .check {
   color: forestgreen;
 }
+
+.form-change-container {
+  margin-top: 10px;
+}
+
+.form-change {
+  display: inline;
+}
+
+.form-change-link {
+  text-decoration: underline;
+  color: #bf515c;
+  display: inline;
+}
+
+.form-change-link:hover {
+  cursor: pointer;
+  color: #853a41;
+}
