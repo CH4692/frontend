@@ -1,4 +1,4 @@
-import mealsImage from "../../assets/meals.jpg";
+import mealsImage from "../../assets/pizza.jpg";
 import classes from "./Header.module.css";
 import HeaderCardButton from "./HeaderCartButton";
 
@@ -6,17 +6,12 @@ const Header = (props) => {
   return (
     <>
       <header className={classes.header}>
-        <h1>Deliverando</h1>
+        <h1>Pizzerando</h1>
         <div className={classes["header-btn-container"]}>
           <HeaderCardButton
             onClick={props.onShowCart}
             isCart={true}
-            span={"Warenkorb"}
-          />
-          <HeaderCardButton
-            onClick={props.onShowProfile}
-            isCart={false}
-            span={"Profil"}
+            span={"Shopping Cart"}
           />
         </div>
       </header>
