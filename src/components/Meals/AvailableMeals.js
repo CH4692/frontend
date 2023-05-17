@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
+import axios from "axios";
 
 const DUMMY_MEALS = [
   {
@@ -71,7 +72,22 @@ const DUMMY_MEALS = [
 ];
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const [meals, setMeals] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await axios.get("http://localhost:8080/api/v1/products/all");
+      setMeals(data.data);
+    }
+    fetchData();
+    console.log(meals);
+    return () => {
+      {
+      }
+    };
+  }, []);
+
+  const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}
