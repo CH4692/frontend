@@ -15,6 +15,14 @@ section {
   height: 110%;
 }
 
+.flexcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 @keyframes meals-appear {
   from {
     opacity: 0;

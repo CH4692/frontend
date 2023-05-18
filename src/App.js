@@ -1,18 +1,13 @@
-import Dashboard from "./components/Dashboard/Dashboard";
-import AllOrders from "./components/Dashboard/AllOrders";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import DeliverandoPage from "./DeliverandoPage";
-import { useState } from "react";
+import Pizzarando from "./Pizzarando";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
-  const [user, setUser] = useState();
-
   return (
     <Router>
       <Routes>
-        <Route path="admin" element={<Dashboard user={user} />} />
-        <Route path="orders" element={<AllOrders user={user} />} />
-        <Route path="*" element={<DeliverandoPage user={user} />} />
+        <Route path="*" element={<Pizzarando />} />
+        <Route path="admin" element={<Dashboard />} />
       </Routes>
     </Router>
   );

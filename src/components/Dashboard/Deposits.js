@@ -1,32 +1,27 @@
-import React, { useMemo, useState } from "react";
+import * as React from "react";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Title from "./Title";
 
-const time = Date.now();
-const today = new Date(time);
+function preventDefault(event) {
+  event.preventDefault();
+}
 
-export default function Deposits({ data }) {
-  const [totalAmount, setTotalAmount] = useState();
-
-  const getTotalAmount = useMemo(() => {
-    let total = 0;
-    data.map((item) => {
-      total += item.orders.reduce(
-        (total, currentValue) => total + parseInt(currentValue.totalAmount),
-        0
-      );
-    });
-    return total;
-  }, [totalAmount, data]);
-
+export default function Deposits() {
   return (
     <React.Fragment>
-      <Title> Einnahmen Gesamt</Title>
+      <Title>Recent Deposits</Title>
       <Typography component="p" variant="h4">
-        {`${getTotalAmount}€`}
+        $3,024.00
       </Typography>
-      <Typography color="text.secondary" sx={{ flex: 1 }}></Typography>
-      <div>{today.toDateString()}</div>
+      <Typography color="text.secondary" sx={{ flex: 1 }}>
+        on 15 March, 2019
+      </Typography>
+      <div>
+        <Link color="primary" href="#" onClick={preventDefault}>
+          View balance
+        </Link>
+      </div>
     </React.Fragment>
   );
 }
