@@ -7,21 +7,22 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function Deposits({ title, text, info, info2, info3 }) {
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
-      <Typography component="p" variant="h4">
-        $3,024.00
+      <Title>{title}</Title>
+      <Typography mb={2} component="p" variant="h5">
+        {text}
       </Typography>
-      <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 March, 2019
+      <Typography color="text.secondary" variant="h6">
+        {info}
       </Typography>
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
-        </Link>
-      </div>
+      <Typography color="text.secondary" variant="h6">
+        {info2}
+      </Typography>
+      <Typography color="text.secondary" variant="h6">
+        {info3}
+      </Typography>
     </React.Fragment>
   );
 }
