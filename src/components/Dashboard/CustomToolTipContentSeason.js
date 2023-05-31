@@ -5,7 +5,7 @@ const CustomToolTipContentSeason = ({ active, payload, label }) => {
   if (active) {
     return (
       <div className="custom-tooltip">
-        <p className="label">{`${label}`}</p>
+        <p className="label">{`${label.toString()}`}</p>
         <p className="value">{`${payload[0].payload.month}`}</p>
         <p className="value">{`${payload[0].value}`} €</p>
       </div>
