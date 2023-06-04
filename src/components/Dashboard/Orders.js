@@ -7,13 +7,6 @@ import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 export default function Orders({ rows, title }) {
   return (
