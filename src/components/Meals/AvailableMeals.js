@@ -13,6 +13,7 @@ const AvailableMeals = () => {
       setMeals(data.data);
     }
     fetchData();
+    console.log(meals);
     return () => {};
   }, []);
 
@@ -34,6 +35,7 @@ const AvailableMeals = () => {
       category={meal.category}
       size={meal.size}
       ingredients={meal.ingredients}
+      sku={meal.sku}
       price={meal.price}
     />
   ));

@@ -26,16 +26,14 @@ const Cart = (props) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/v1/order",
+        "http://localhost:8080/api/v1/orders/new",
         order,
         {
-          params: {
-            username: props.user.username,
-          },
           headers: { "Content-Type": "application/json" },
         }
       );
       console.log(res.data);
+      console.log(order);
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +51,7 @@ const Cart = (props) => {
           amount={item.amount}
           size={item.size}
           price={item.price}
+          sku={item.sku}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
         />
