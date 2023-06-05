@@ -6,6 +6,12 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
+/**
+ * A reducer class which provides all items in the shopping cart across the whole application
+ * @param {*} state "ADD" is adding an item to the shopping cart, "REMOVE" is deleting an item from the shopping cart
+ * @param {*} action the actual method to do the adding or removing
+ * @returns an object which contains the shopping cart items and the total amount
+ */
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalAmount =

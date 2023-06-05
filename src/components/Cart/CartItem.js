@@ -1,5 +1,10 @@
 import classes from "./CartItem.module.css";
 
+/**
+ * This contains all the CartItems in the shopping cart.
+ * @param {*} props
+ * @returns
+ */
 const CartItem = (props) => {
   const price = `${props.price.toFixed(2)}€`;
 

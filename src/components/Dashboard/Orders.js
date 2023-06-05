@@ -6,15 +6,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
+/**
+ * This contains the lists of the Products which can be ordered
+ * @param {*} param0
+ * @returns
+ */
 export default function Orders({ rows, title }) {
   return (
     <React.Fragment>

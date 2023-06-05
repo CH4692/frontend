@@ -3,9 +3,11 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Title from "./Title";
 
-function preventDefault(event) {
-  event.preventDefault();
-}
+/**
+ * This contains the widgets which display any given content through proops
+ * @param {*} param0
+ * @returns
+ */
 
 export default function Deposits({ title, text, info, info2, info3 }) {
   return (

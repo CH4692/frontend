@@ -11,6 +11,11 @@ import {
 import Title from "../Title";
 import "./Chart.css";
 
+/**
+ * This is the chart component which contains the structure of every given chart.
+ * @param {*} param0
+ * @returns
+ */
 export default function Chart({ title, dataKeyBar, dataKey, data, tooltip }) {
   return (
     <React.Fragment>

@@ -5,6 +5,12 @@ import { useContext } from "react";
 import CartItem from "./CartItem";
 import axios from "axios";
 
+/**
+ * The actual Shopping cart where all chosen items can be seen and ordered by clicking the order Button
+ * @param {*} props the props of all items in the shopping cart
+ * @returns The shopping cart and its chosesn items
+ */
+
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 

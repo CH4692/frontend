@@ -1,3 +1,7 @@
+/**
+ * This is simple data storage containing all the actual data which is coming from the backend
+ */
+
 export const getAllFavoriteStores = [
   {
     city: "Tuscarora",
