@@ -1,5 +1,4 @@
 import CartIcon from "../Cart/CartIcon";
-import ProfileIcon from "../Cart/ProfileIcon";
 import classes from "./HeaderCartButton.module.css";
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../../store/cart.context";
@@ -35,10 +34,7 @@ const HeaderCardButton = (props) => {
 
   return (
     <button className={btnClasses} onClick={props.onClick}>
-      <span className={classes.icon}>
-        {props.isCart && <CartIcon />}
-        {!props.isCart && <ProfileIcon />}
-      </span>
+      <span className={classes.icon}>{props.isCart && <CartIcon />}</span>
       <span>{props.span}</span>
       {props.isCart && (
         <span className={classes.badge}>{numberOfCartItems}</span>
