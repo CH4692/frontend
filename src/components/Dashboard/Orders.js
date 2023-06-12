@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,12 +12,14 @@ import Title from "./Title";
  * @returns
  */
 export default function Orders({ rows, title }) {
+  const [placement, setPlacement] = useState(0);
   return (
     <React.Fragment>
       <Title>{title}</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
+            <TableCell>#</TableCell>
             <TableCell>Launch</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Size</TableCell>
@@ -26,8 +28,9 @@ export default function Orders({ rows, title }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row, index) => (
             <TableRow key={row.id}>
+              <TableCell>{index + 1}</TableCell>
               <TableCell>{row.launch}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.size}</TableCell>
