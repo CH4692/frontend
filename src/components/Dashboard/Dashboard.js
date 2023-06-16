@@ -20,6 +20,8 @@ import CustomToolTipContentStores from "./CustomToolTipContentStores";
 import CustomToolTipContentGainers from "./CustomToolTipContentGainers";
 import CustomToolTipContentSeason from "./CustomToolTipContentSeason";
 import { IconButton } from "@mui/material";
+import Modal from "../UI/Modal";
+import NewProduct from "./NewProduct";
 
 function Copyright(props) {
   return (
@@ -78,6 +80,7 @@ const Dashboard = () => {
   const [allTopSeasons, setAllTopSeasons] = useState();
   const [allProducts, setAllProducts] = useState();
   const [totalIncome, setTotalIncome] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -162,8 +165,21 @@ const Dashboard = () => {
     );
   }
 
+  const showOpenHandler = () => {
+    setIsOpen(true);
+  };
+
+  const hideOpenHandler = () => {
+    setIsOpen(false);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
+      {isOpen && (
+        <Modal onClose={hideOpenHandler}>
+          <NewProduct />
+        </Modal>
+      )}
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute">
@@ -182,6 +198,7 @@ const Dashboard = () => {
               Admin Dashboard
             </Typography>
             <IconButton
+              onClick={showOpenHandler}
               sx={{
                 fontSize: "48px",
                 boxShadow: "0px 1px 15px 0px rgba(0,0,0,0.5)",

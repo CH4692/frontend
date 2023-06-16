@@ -18,7 +18,6 @@ const AvailableMeals = () => {
       setMeals(data.data);
     }
     fetchData();
-    console.log(meals);
     return () => {};
   }, []);
 
