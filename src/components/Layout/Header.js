@@ -2,6 +2,11 @@ import mealsImage from "../../assets/pizza.jpg";
 import classes from "./Header.module.css";
 import HeaderCardButton from "./HeaderCartButton";
 
+/**
+ * The header component which contains the header and the background pic.
+ * @param {*} props to show the Cart or not
+ * @returns header, header card button and the background pic
+ */
 const Header = (props) => {
   return (
     <>

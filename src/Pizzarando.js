@@ -4,7 +4,11 @@ import Meals from "./components/Meals/Meals";
 import { useState } from "react";
 import CartProvider from "./store/CartProvider";
 
-function DeliverandoPage({ user }) {
+/**
+ * The main customer page, which contains all components of the page
+ * @returns the structure of the page and its components
+ */
+function DeliverandoPage() {
   const [cartIsShown, setCartIsShown] = useState(false);
 
   const showCartHandler = () => {
@@ -17,10 +21,10 @@ function DeliverandoPage({ user }) {
 
   return (
     <CartProvider>
-      {cartIsShown && <Cart user={user} onClose={hideCartHandler} />}
+      {cartIsShown && <Cart onClose={hideCartHandler} />}
       <Header onShowCart={showCartHandler} />
       <main>
-        <Meals user={user} />
+        <Meals />
       </main>
     </CartProvider>
   );
