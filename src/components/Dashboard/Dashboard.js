@@ -41,6 +41,9 @@ function Copyright(props) {
 
 const drawerWidth = 240;
 
+/**
+ * This contains the Bar contents of the Admin Page
+ */
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -59,9 +62,12 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+/**
+ * This contains the Admin Dashboards and all components it provides
+ * @returns
+ */
 const Dashboard = () => {
   const [allFavoriteStores, setAllFavoriteStores] = useState();
   const [favoriteStore, setFavoriteStore] = useState();

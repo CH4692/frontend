@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * This is a custom tooltip for the Stores Chart
+ * @param {} param0
+ * @returns
+ */
 const CustomToolTipContentStores = ({ active, payload, label }) => {
   if (active) {
     return (

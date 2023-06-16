@@ -3,6 +3,11 @@ import classes from "./MealItem.module.css";
 import MealItemForm from "./MealItemForm";
 import CartContext from "../../../store/cart.context";
 
+/**
+ * MealItem component is the structure of every available Meal with its contents
+ * @param {*} props containing the props of all information from the backend
+ * @returns
+ */
 const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
   const price = `${props.price.toFixed(2)}€`;

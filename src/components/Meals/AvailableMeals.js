@@ -4,6 +4,11 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import axios from "axios";
 
+/**
+ * The Available Meals component contains all meals (products) available from the backend. They are shown as a list.
+ * Meals can be added to the shopping cart.
+ * @returns all MealItems and its props
+ */
 const AvailableMeals = () => {
   const [meals, setMeals] = useState();
 

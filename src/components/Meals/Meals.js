@@ -1,7 +1,12 @@
 import React from "react";
 import AvailableMeals from "./AvailableMeals";
 
-const Meals = ({ user }) => {
+/**
+ * The Meals component which the available meals component.
+ * @param {*} param0
+ * @returns Available meals component
+ */
+const Meals = () => {
   return (
     <>
       <AvailableMeals />

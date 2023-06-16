@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+/**
+ * This is a custom tooltip for the Seasons Chart
+ * @param {} param0
+ * @returns
+ */
 const CustomToolTipContentSeason = ({ active, payload, label }) => {
   if (active) {
     return (

@@ -1,6 +1,9 @@
 import React from "react";
 import classes from "./Input.module.css";
 
+/**
+ * This is an input components which contains styling and a ready usable input
+ */
 const Input = React.forwardRef((props, ref) => {
   return (
     <div className={classes.input}>
