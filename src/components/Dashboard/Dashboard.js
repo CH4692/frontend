@@ -22,6 +22,7 @@ import CustomToolTipContentSeason from "./CustomToolTipContentSeason";
 import { IconButton } from "@mui/material";
 import Modal from "../UI/Modal";
 import NewProduct from "./NewProduct";
+import AnalysisMap from "./AnalysisMap";
 
 function Copyright(props) {
   return (
@@ -80,58 +81,113 @@ const Dashboard = () => {
   const [allTopSeasons, setAllTopSeasons] = useState();
   const [allProducts, setAllProducts] = useState();
   const [totalIncome, setTotalIncome] = useState();
+  const [stores, setStores] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const link = {
+    topStore: "http://localhost:8080/api/v1/analysis/top-store",
+    topStores: "http://localhost:8080/api/v1/analysis/all/top-stores",
+    topGainer: "http://localhost:8080/api/v1/analysis/top-gainer",
+    topGainers: "http://localhost:8080/api/v1/analysis/all/top-gainers",
+    topProduct: "http://localhost:8080/api/v1/analysis/top-product",
+    topProducts: "http://localhost:8080/api/v1/analysis/all/top-products",
+    all: "http://localhost:8080/api/v1/products/all",
+    topSeasons: "http://localhost:8080/api/v1/analysis/all/top-seasons",
+    totalIncome: "http://localhost:8080/api/v1/analysis/all/total-income",
+    allStores: "http://localhost:8080/api/v1/stores/all",
+  };
 
   useEffect(() => {
     async function fetchData() {
-      const favStore = await axios.get(
+      const favStore = axios.get(
         "http://localhost:8080/api/v1/analysis/top-store"
       );
-      const allFavStores = await axios.get(
+      const allFavStores = axios.get(
         "http://localhost:8080/api/v1/analysis/all/top-stores"
       );
-      const topGainer = await axios.get(
+      const topGainer = axios.get(
         "http://localhost:8080/api/v1/analysis/top-gainer"
       );
-      const allTopGainer = await axios.get(
+      const allTopGainer = axios.get(
         "http://localhost:8080/api/v1/analysis/all/top-gainers"
       );
-      const topProduct = await axios.get(
+      const topProduct = axios.get(
         "http://localhost:8080/api/v1/analysis/top-product"
       );
-      const allTopProducts = await axios.get(
+      const allTopProducts = axios.get(
         "http://localhost:8080/api/v1/analysis/all/top-products"
       );
-      const allProducts = await axios.get(
+      const allProducts = axios.get(
         "http://localhost:8080/api/v1/products/all"
       );
-      const allTopSeasons = await axios.get(
+      const allTopSeasons = axios.get(
         "http://localhost:8080/api/v1/analysis/all/top-seasons"
       );
-      const totalIncome = await axios.get(
+      const totalIncome = axios.get(
         "http://localhost:8080/api/v1/analysis/all/total-income"
       );
-      setAllFavoriteStores(allFavStores.data);
-      setFavoriteStore(favStore.data);
-      setAllTopGainer(allTopGainer.data);
-      setTopGainer(topGainer.data);
-      setAllTopProducts(allTopProducts.data);
-      setTopProduct(topProduct.data);
-      setAllProducts(allProducts.data);
-      setAllTopSeasons(allTopSeasons.data);
-      setTotalIncome(totalIncome.data);
+      const getAllStores = axios.get("http://localhost:8080/api/v1/stores/all");
+      // waiting for allthethings in parallel
+      const result = (
+        await Promise.all([
+          favStore,
+          allFavStores,
+          topGainer,
+          allTopGainer,
+          topProduct,
+          allTopProducts,
+          allProducts,
+          allTopSeasons,
+          totalIncome,
+          getAllStores,
+        ])
+      ).map((r) => {
+        switch (r.config.url) {
+          case link.topStores:
+            setAllFavoriteStores(r.data);
+            break;
+          case link.topStore:
+            setFavoriteStore(r.data);
+
+            break;
+          case link.topGainer:
+            setTopGainer(r.data);
+
+            break;
+          case link.topGainers:
+            setAllTopGainer(r.data);
+
+            break;
+          case link.topProduct:
+            setTopProduct(r.data);
+
+            break;
+          case link.topProducts:
+            setAllTopProducts(r.data);
+
+            break;
+          case link.all:
+            setAllProducts(r.data);
+
+            break;
+          case link.topSeasons:
+            setAllTopSeasons(r.data);
+
+            break;
+          case link.totalIncome:
+            setTotalIncome(r.data);
+            break;
+          case link.allStores:
+            setStores(r.data);
+            console.log(r.data);
+            break;
+          default:
+        }
+        return;
+      });
     }
     fetchData();
   }, []);
-  console.log(allFavoriteStores);
-  console.log(favoriteStore);
-  console.log(allTopGainer);
-  console.log(topGainer);
-  console.log(allTopProducts);
-  console.log(topProduct);
-  console.log(allProducts);
-  console.log(allTopSeasons);
-  console.log(totalIncome);
+
   if (
     (allFavoriteStores ||
       favoriteStore ||
@@ -368,6 +424,11 @@ const Dashboard = () => {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Orders rows={allProducts} title={"All Products"} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ display: "flex", flexDirection: "column" }}>
+                  <AnalysisMap stores={stores} />
                 </Paper>
               </Grid>
             </Grid>
