@@ -11,8 +11,16 @@ import Title from "./Title";
  * @param {*} param0
  * @returns
  */
-export default function Orders({ rows, title }) {
-  const [placement, setPlacement] = useState(0);
+export default function Orders({ rows, title, deleteHandler }) {
+  const [data, setData] = useState(rows);
+
+  const deleteProduct = (id) => {
+    deleteHandler(id);
+    console.log(id);
+    const updatedData = data.filter((row) => row.id !== id);
+    setData(updatedData);
+  };
+
   return (
     <React.Fragment>
       <Title>{title}</Title>
@@ -25,17 +33,26 @@ export default function Orders({ rows, title }) {
             <TableCell>Size</TableCell>
             <TableCell>Ingredients</TableCell>
             <TableCell align="right">Price</TableCell>
+            <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {data.map((row, index) => (
             <TableRow key={row.id}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{row.launch}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.size}</TableCell>
               <TableCell>{row.ingredients}</TableCell>
-              <TableCell align="right">{`${row.price}€`}</TableCell>
+              <TableCell align="right">{`${row.price.toFixed(2)}€`}</TableCell>
+              <TableCell align="right">
+                <button
+                  onClick={() => deleteProduct(row.id)}
+                  style={{ width: 40 }}
+                >
+                  X
+                </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

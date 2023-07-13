@@ -178,7 +178,6 @@ const Dashboard = () => {
             break;
           case link.allStores:
             setStores(r.data);
-            console.log(r.data);
             break;
           default:
         }
@@ -223,6 +222,10 @@ const Dashboard = () => {
 
   const showOpenHandler = () => {
     setIsOpen(true);
+  };
+
+  const deleteHandler = async (id) => {
+    await axios.delete(`http://localhost:8080/api/v1/products/${id}`);
   };
 
   const hideOpenHandler = () => {
@@ -343,7 +346,7 @@ const Dashboard = () => {
                   <Deposits
                     title={"Top Gainer Store"}
                     text={`${topGainer.city}, ${topGainer.state}`}
-                    info3={`Sales of ${topGainer.totalIncome} €`}
+                    info3={`Sales of ${topGainer.totalIncome.toFixed(2)} €`}
                   />
                 </Paper>
               </Grid>
@@ -423,7 +426,11 @@ const Dashboard = () => {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders rows={allProducts} title={"All Products"} />
+                  <Orders
+                    rows={allProducts}
+                    title={"All Products"}
+                    deleteHandler={deleteHandler}
+                  />
                 </Paper>
               </Grid>
               <Grid item xs={12}>
