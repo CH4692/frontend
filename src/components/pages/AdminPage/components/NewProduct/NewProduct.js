@@ -11,8 +11,8 @@ const NewProduct = () => {
 
   const { register, handleSubmit } = useForm();
   const [created, setCreated] = useState(false);
-  const [ingredients, setIngredients] = useState([]);
-  const [list, setList] = useState([
+  const [ingredients] = useState([]);
+  const [list] = useState([
     {
       ingredients: "Mushrooms",
       checked: false,

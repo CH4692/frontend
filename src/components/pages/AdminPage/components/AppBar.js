@@ -1,13 +1,12 @@
-import React from "react";
+import styled from "@emotion/styled";
+import { AppBar } from "@mui/material";
 
 const drawerWidth = 240;
 
 /**
  * This contains the Bar contents of the Admin Page
  */
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+const MuiAppBar = styled(AppBar)(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -23,4 +22,4 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export default AppBar;
+export default MuiAppBar;

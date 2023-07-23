@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import Chart from "./components/Chart/Chart";
 import Deposits from "./components/Deposits";
 import Orders from "./components//Orders";
@@ -23,7 +21,6 @@ import { IconButton } from "@mui/material";
 import Modal from "../../common/Modal/Modal";
 import NewProduct from "./components/NewProduct/NewProduct";
 import StoresMap from "./components/Map/StoresMap";
-import Copyright from "./components/Copyright";
 import AppBar from "./components/AppBar";
 
 const defaultTheme = createTheme();
@@ -88,7 +85,7 @@ const Dashboard = () => {
       );
       const getAllStores = axios.get("http://localhost:8080/api/v1/stores/all");
       // waiting for allthethings in parallel
-      const result = (
+      (
         await Promise.all([
           favStore,
           allFavStores,
@@ -142,11 +139,11 @@ const Dashboard = () => {
             break;
           default:
         }
-        return;
+        return "";
       });
     }
     fetchData();
-  }, []);
+  });
 
   if (
     (allFavoriteStores ||
@@ -400,8 +397,6 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
             </Grid>
-
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>

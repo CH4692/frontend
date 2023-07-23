@@ -20,7 +20,7 @@ const AvailableMeals = () => {
     fetchData();
     console.log(meals);
     return () => {};
-  }, []);
+  });
 
   if (meals === undefined) {
     return (
